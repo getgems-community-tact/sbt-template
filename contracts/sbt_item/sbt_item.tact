@@ -126,6 +126,16 @@ contract SbtItem {
         self.exit_without_saving();
     }
 
+    bounced(msg: bounced<OwnershipProof>) {
+        send(SendParameters{
+            to: self.owner!!,
+            value: 0,
+            mode: SendRemainingValue,
+            body: OwnershipProofBounced{query_id: msg.query_id}.toCell()
+        });
+        self.exit_without_saving();
+    }
+
     inline fun exit_without_saving() {
         commit();
         throw(0);

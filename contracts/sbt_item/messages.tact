@@ -31,6 +31,10 @@ message(0x0524c7ae) OwnershipProof {
     content: Cell?;
 }
 
+message(0xc18e86d2) OwnershipProofBounced {
+    query_id: Int as uint64;
+}
+
 // request_owner#d0c3bfea query_id:uint64 dest:MsgAddress 
 // forward_payload:^Cell with_content:Bool = InternalMsgBody;
 
@@ -52,12 +56,6 @@ message(0x0dd607e3) OwnerInfo {
     data: Cell;
     revoked_at: Int as uint64;
     content: Cell?;
-}
-
-message(0x05138d91) OwnershipAssigned {
-    query_id: Int as uint64;
-    prev_owner: Address;
-    forward_payload: Slice as remaining; 
 }
 
 message(0xd53276db) Excesses {
