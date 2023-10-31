@@ -5,7 +5,7 @@
 
 message DeployItem {
     owner_address: Address;
-    content: Cell;
+    content: Cell?;
     authority_address: Address;
 }
 

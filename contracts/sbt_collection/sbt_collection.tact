@@ -84,6 +84,8 @@ contract SbtCollection {
     
     get fun get_nft_content(index: Int, individual_content: Cell): Cell { 
         let b: StringBuilder = beginString();
+        let cc: String = self.collection_content.asSlice().asString();
+        b.append(cc);
         let ic: String = individual_content.asSlice().asString();
         b.append(ic);
         return b.toCell();

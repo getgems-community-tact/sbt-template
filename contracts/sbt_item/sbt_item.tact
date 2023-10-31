@@ -95,6 +95,12 @@ contract SbtItem {
         require(self.authority_address == sender(), "Invalid Sender");
         require(self.revoked_at == 0, "Already revoked");
         self.revoked_at = now();
+        send(SendParameters{
+            to: self.authority_address!!,
+            value: 0,
+            mode: SendRemainingValue,
+            body: Excesses{query_id: msg.query_id}.toCell()
+        });
     }
 
     receive(msg: TakeExcess) {
@@ -144,7 +150,10 @@ contract SbtItem {
     // --------- Get Function  --------- //
     get fun get_nft_data(): GetNftData {
         let b: StringBuilder = beginString();
-        let collectionData: String = (self.content!!).asSlice().asString();
+        let collectionData: String = "";
+        if (self.content != null) {
+            collectionData = (self.content!!).asSlice().asString();
+        }
         b.append(collectionData);
         b.append(self.item_index.toString());
         b.append(".json");
@@ -153,7 +162,7 @@ contract SbtItem {
             is_initialized: self.is_initialized, 
             index: self.item_index, 
             collection_address: self.collection_address, 
-            owner_address: self.owner!!,
+            owner_address: self.owner,
             individual_content: b.toCell()
         };
     }

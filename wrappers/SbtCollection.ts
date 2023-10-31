@@ -1,1 +1,1 @@
-export * from '../build/NftCollection/tact_NftCollection';
+export * from '../build/SbtCollection/tact_SbtCollection';
